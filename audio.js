@@ -15,22 +15,77 @@ let data = {
         "music/phonk killazz & MantiCxrs - MONTAGEM MASENTADO.mp3"
 
     ],
-poster:[
-   "https: //media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyeWh6OTV1NnhtemN6djJ5eG51YzJkcjB1dGU1NXBscW8yamhzemU5eSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4oMoIbIQrvCjm/200w.gif",
-   " https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyeWh6OTV1NnhtemN6djJ5eG51YzJkcjB1dGU1NXBscW8yamhzemU5eSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4oMoIbIQrvCjm/200w.gif",
-   "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGF2ZXl2Z3NuZ2NyYmlhdXhndnl4aWxud29pejV4cWFvZWR4bHZucyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tqfS3mgQU28ko/200w.webp",
-   "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGF2ZXl2Z3NuZ2NyYmlhdXhndnl4aWxud29pejV4cWFvZWR4bHZucyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/wsWcsrfMXjJgk/100.webp"
+    poster: [
+        "https: //media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyeWh6OTV1NnhtemN6djJ5eG51YzJkcjB1dGU1NXBscW8yamhzemU5eSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4oMoIbIQrvCjm/200w.gif",
+        " https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyeWh6OTV1NnhtemN6djJ5eG51YzJkcjB1dGU1NXBscW8yamhzemU5eSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4oMoIbIQrvCjm/200w.gif",
+        "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGF2ZXl2Z3NuZ2NyYmlhdXhndnl4aWxud29pejV4cWFvZWR4bHZucyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tqfS3mgQU28ko/200w.webp",
+        "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGF2ZXl2Z3NuZ2NyYmlhdXhndnl4aWxud29pejV4cWFvZWR4bHZucyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/wsWcsrfMXjJgk/100.webp"
 
 
 
 
 
-]
+    ]
 
 
 }
 
 
+let song = new Audio()
+let currentSong = 0
+
+window.onload = function () {
+    playSon()
+
+
+
+
+
+}
+
+function playSon() {
+    song.src = data.song[currentSong]
+    let sondTitle = document.getElementById("songTitle")
+    sondTitle.textContent = data.title[currentSong]
+
+    let img = document.getElementById("row1")
+    img.style.backgroundImage = "url (" + data.poster[currentSong] + "  )"
+
+    let main = document.getElementById("main")
+    img.style.backgroundImage = "url (" + data.poster[currentSong] + "  )"
+    song.play()
+
+
+
+
+
+}
+function playOrPauseSong() {
+    let play = document.getElementById("play")
+    if (song.paused) {
+        song.play()
+        play.src = "imagespause.png"
+
+    } else {
+        song.pause()
+        play.src = "images/play-button-arrowhead.png"
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 
