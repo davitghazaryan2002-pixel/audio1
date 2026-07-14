@@ -60,11 +60,11 @@ function playSon() {
 
 
 }
-function playOrPauseSong() {
+function playSong() {
     let play = document.getElementById("play")
     if (song.paused) {
         song.play()
-        play.src = "imagespause.png"
+        play.src = "images/pause.png"
 
     } else {
         song.pause()
@@ -79,6 +79,61 @@ function playOrPauseSong() {
 
 
 
+}
+
+
+
+
+
+song.addEventListener("timeupdate", function () {
+
+    let fill = document.getElementById("fill")
+    let position = song.currentTime / song.duration
+    fill.style.width = position * 100 + "%"
+    convertTime(song.currentTime)
+    totalTime(Math.round(song.duration))
+
+
+    if (song.ended) {
+        next()
+
+
+
+
+
+    }
+
+
+})
+
+function convertTime(seconds) {
+
+    let currentTime = document.getElementById("curentTime")
+    let min = Math.floor(seconds / 60)
+    let sec = Math.floor(seconds % 60)
+
+    min = (min < 10) ? "0" + min : min
+    sec = (sec < 10) ? "0" + sec : sec
+
+    currentTime.textContent = min + ":" + sec
+
+}
+
+
+
+
+function totalTime(seconds){
+
+    
+    let min = Math.floor(seconds / 60)
+    let sec = Math.floor(seconds % 60)
+
+    min = (min < 10) ? "0" + min : min
+    sec = (sec < 10) ? "0" + sec : sec
+    currentTime.textContent += min + ":" + sec
+
+
+
 
 
 
@@ -88,8 +143,48 @@ function playOrPauseSong() {
 }
 
 
+function next(){
+currentSong++
+if(currentSong >= data.song.length){
+ currentSong = 0
 
 
+
+
+
+}
+playSong()
+play.src ="images/paus.png"
+}
+
+
+function pre (){
+currentSong--
+if(currentSong <= 0){
+ currentSong = data.song.leength -1
+
+
+
+}
+playSong()
+play.src = "images/pause.png"
+
+}
+
+function muted(){
+let mute = document.getElementById("mute")
+ if(song.muted){
+   song.muted = false
+  mute.src = "images/volum.png"
+
+ }else{
+song.muted = true
+mute.src = "images/volume-mute.png"
+
+ }
+
+
+}
 
 
 
