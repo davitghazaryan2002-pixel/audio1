@@ -1,210 +1,240 @@
+
 let data = {
     title: [
         "ANDRXRXSSO & BLOODTHXRN - DARKSIDE (1)",
-        "ANDRXRXSSO & BLOODTHXRN - DARKSIDE",
+        "music/SAYAN - Мальборо (Harddope Club Remix).mp3",
         "phonk killazz & MantiCxrs - ALL I WANT IS YOU",
-        "phonk killazz & MantiCxrs - MONTAGEM MASENTAD"
-
-
+        "music/Алина Гросу feat. Polyanskiy - Полотенце (EDscore Remix).mp3"
     ],
 
     song: [
         "music/ANDRXRXSSO & BLOODTHXRN - DARKSIDE (1).mp3",
-        "music/ANDRXRXSSO & BLOODTHXRN - DARKSIDE.mp3",
+        "music/SAYAN - Мальборо (Harddope Club Remix).mp3",
         "music/Phonk Killazz & MantiCxrs - Holding Out For A Hero Hoodtrap.mp3",
-        "music/phonk killazz & MantiCxrs - MONTAGEM MASENTADO.mp3"
-
+        "music/Алина Гросу feat. Polyanskiy - Полотенце (EDscore Remix).mp3"
     ],
+
     poster: [
-        "https: //media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyeWh6OTV1NnhtemN6djJ5eG51YzJkcjB1dGU1NXBscW8yamhzemU5eSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4oMoIbIQrvCjm/200w.gif",
-        " https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyeWh6OTV1NnhtemN6djJ5eG51YzJkcjB1dGU1NXBscW8yamhzemU5eSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4oMoIbIQrvCjm/200w.gif",
-        "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGF2ZXl2Z3NuZ2NyYmlhdXhndnl4aWxud29pejV4cWFvZWR4bHZucyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tqfS3mgQU28ko/200w.webp",
-        "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGF2ZXl2Z3NuZ2NyYmlhdXhndnl4aWxud29pejV4cWFvZWR4bHZucyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/wsWcsrfMXjJgk/100.webp"
-
-
-
-
-
+        "https://media4.giphy.com/media/4oMoIbIQrvCjm/200w.gif",
+        "https://media4.giphy.com/media/4oMoIbIQrvCjm/200w.gif",
+        "https://media2.giphy.com/media/tqfS3mgQU28ko/200w.webp",
+        "https://media4.giphy.com/media/wsWcsrfMXjJgk/100.webp"
     ]
+};
 
 
-}
+let song = new Audio();
+let currentSong = 0;
 
-
-let song = new Audio()
-let currentSong = 0
 
 window.onload = function () {
-    playSon()
+    playSong();
+};
 
 
-
-
-
-}
-
-function playSon() {
-    song.src = data.song[currentSong]
-    let sondTitle = document.getElementById("songTitle")
-    sondTitle.textContent = data.title[currentSong]
-
-    let img = document.getElementById("row1")
-    img.style.backgroundImage = "url (" + data.poster[currentSong] + "  )"
-
-    let main = document.getElementById("main")
-    img.style.backgroundImage = "url (" + data.poster[currentSong] + "  )"
-    song.play()
-
-
-
-
-
-}
 function playSong() {
-    let play = document.getElementById("play")
-    if (song.paused) {
-        song.play()
-        play.src = "images/pause.png"
 
-    } else {
-        song.pause()
-        play.src = "images/play-button-arrowhead.png"
+    song.src = data.song[currentSong];
+
+    document.getElementById("songTitle").textContent =
+        data.title[currentSong];
 
 
+    let img = document.getElementById("row1");
 
+    img.style.backgroundImage =
+        `url(${data.poster[currentSong]})`;
+
+
+    song.play();
+
+
+    let play = document.getElementById("play");
+    if(play){
+        play.src = "images/pause.png";
     }
-
-
-
-
-
-
 }
 
 
 
+function playOrPauseSong() {
 
+    let play = document.getElementById("play");
 
-song.addEventListener("timeupdate", function () {
+    if(song.paused){
 
-    let fill = document.getElementById("fill")
-    let position = song.currentTime / song.duration
-    fill.style.width = position * 100 + "%"
-    convertTime(song.currentTime)
-    totalTime(Math.round(song.duration))
+        song.play();
 
+        play.src = "images/pause.png";
 
-    if (song.ended) {
-        next()
+    }else{
 
+        song.pause();
 
-
-
-
+        play.src = "images/play-button-arrowhead.png";
     }
-
-
-})
-
-function convertTime(seconds) {
-
-    let currentTime = document.getElementById("curentTime")
-    let min = Math.floor(seconds / 60)
-    let sec = Math.floor(seconds % 60)
-
-    min = (min < 10) ? "0" + min : min
-    sec = (sec < 10) ? "0" + sec : sec
-
-    currentTime.textContent = min + ":" + sec
-
 }
 
+
+
+song.addEventListener("timeupdate", function(){
+
+    let fill = document.getElementById("fill");
+
+    let position = song.currentTime / song.duration;
+
+    fill.style.width = position * 100 + "%";
+
+
+    convertTime(song.currentTime);
+    totalTime(song.duration);
+
+
+    if(song.ended){
+        next();
+    }
+
+});
+
+
+
+function convertTime(seconds){
+
+    let currentTime = document.getElementById("curentTime");
+
+    let min = Math.floor(seconds / 60);
+    let sec = Math.floor(seconds % 60);
+
+
+    min = min < 10 ? "0"+min : min;
+    sec = sec < 10 ? "0"+sec : sec;
+
+
+    currentTime.textContent = min + ":" + sec;
+}
 
 
 
 function totalTime(seconds){
 
-    
-    let min = Math.floor(seconds / 60)
-    let sec = Math.floor(seconds % 60)
+    let total = document.getElementById("totalTime");
 
-    min = (min < 10) ? "0" + min : min
-    sec = (sec < 10) ? "0" + sec : sec
-    currentTime.textContent += min + ":" + sec
+    let min = Math.floor(seconds / 60);
+    let sec = Math.floor(seconds % 60);
 
 
+    min = min < 10 ? "0"+min : min;
+    sec = sec < 10 ? "0"+sec : sec;
 
 
-
-
-
-
-
+    total.textContent = min + ":" + sec;
 }
+
 
 
 function next(){
-currentSong++
-if(currentSong >= data.song.length){
- currentSong = 0
+
+    currentSong++;
 
 
+    if(currentSong >= data.song.length){
+
+        currentSong = 0;
+
+    }
 
 
-
+    playSong();
 }
-playSong()
-play.src ="images/paus.png"
+
+
+
+function pre(){
+
+    currentSong--;
+
+
+    if(currentSong < 0){
+
+        currentSong = data.song.length - 1;
+
+    }
+
+
+    playSong();
 }
 
 
-function pre (){
-currentSong--
-if(currentSong <= 0){
- currentSong = data.song.leength -1
-
-
-
-}
-playSong()
-play.src = "images/pause.png"
-
-}
 
 function muted(){
-let mute = document.getElementById("mute")
- if(song.muted){
-   song.muted = false
-  mute.src = "images/volum.png"
 
- }else{
-song.muted = true
-mute.src = "images/volume-mute.png"
+    let mute = document.getElementById("mute");
 
- }
 
+    song.muted = !song.muted;
+
+
+    if(song.muted){
+
+        mute.src = "images/volume-mute.png";
+
+    }else{
+
+        mute.src = "images/volume.png";
+    }
 
 }
 
 
 
 
+function decrease(){
+
+    song.volume -= 0.2;
+
+
+    if(song.volume < 0){
+
+        song.volume = 0;
+
+    }
+}
 
 
 
+function increase(){
+
+    song.volume += 0.2;
 
 
+    if(song.volume > 1){
 
+        song.volume = 1;
 
+    }
 
+}
 
+function availableTracks(){
 
+    let count = data.song.length;
 
+    console.log("Available songs: " + count);
 
+    return count;
+}
 
+function showSongs(){
 
+    data.title.forEach(function(song, index){
 
+        console.log((index + 1) + ". " + song);
 
+    });
+
+}
+
+availableTracks();
 
 
 
